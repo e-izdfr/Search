@@ -1,5 +1,5 @@
 class Cell:
-    def __init__(self, row: int, col: int, table: list, path_value: int, goal_value: int, path: list):
+    def __init__(self, row: int, col: int, table: list, path_value: int, goal_value: int, path: list, g = 0, f = 0):
         self.row = row
         self.col = col
         self.path_value = path_value
@@ -7,6 +7,8 @@ class Cell:
         self.goal_value = goal_value
         self.table = table
         self.table[row][col] = True
+        self.g = 0
+        self.f = 0
 
     def __eq__(self, other):
         if type(other) != Cell:
@@ -16,5 +18,9 @@ class Cell:
         return False
 
     def __hash__(self):
-        return ','.join(str(item) for innerlist in self.table for item in innerlist) + '@@@' + str(
-            self.row) + ' ' + str(self.col) + '###' + str(self.path_value) + ' ' + str(self.goal_value)
+        return hash(','.join(str(item) for innerlist in self.table for item in innerlist) + '@@@' + str(
+            self.row) + ' ' + str(self.col) + '###' + str(self.path_value) + ' ' + str(self.goal_value))
+        
+    def __str__(self):
+        return str(self.row + 1) + ' ' + str(self.col + 1) + ' ' + str(self.path_value) + ' '  + str(self.goal_value) + ' ' + \
+    str(self.path)
